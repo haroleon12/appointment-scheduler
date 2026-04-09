@@ -1,0 +1,61 @@
+<div style="max-width: 900px; margin: auto; font-family: Arial, sans-serif;">
+  <h1>Appointment Scheduler</h1>
+
+  <p *ngIf="errorMessage" style="color: red;">
+    {{ errorMessage }}
+  </p>
+
+  <h2>Add Appointment</h2>
+
+  <form (ngSubmit)="addAppointment()" #appointmentForm="ngForm">
+    <input
+      type="text"
+      name="customerName"
+      [(ngModel)]="newAppointment.customerName"
+      placeholder="Customer Name"
+      required
+    />
+    <br /><br />
+
+    <input
+      type="text"
+      name="serviceType"
+      [(ngModel)]="newAppointment.serviceType"
+      placeholder="Service Type"
+      required
+    />
+    <br /><br />
+
+    <input
+      type="datetime-local"
+      name="appointmentDateTime"
+      [(ngModel)]="newAppointment.appointmentDateTime"
+      required
+    />
+    <br /><br />
+
+    <select
+      name="status"
+      [(ngModel)]="newAppointment.status"
+      required
+    >
+      <option value="BOOKED">BOOKED</option>
+      <option value="COMPLETED">COMPLETED</option>
+      <option value="CANCELLED">CANCELLED</option>
+    </select>
+    <br /><br />
+
+    <button type="submit">Add Appointment</button>
+  </form>
+
+  <h2>Appointments</h2>
+  <ul>
+    <li *ngFor="let appointment of appointments">
+      <strong>{{ appointment.customerName }}</strong>
+      - {{ appointment.serviceType }}
+      - {{ appointment.appointmentDateTime }}
+      - {{ appointment.status }}
+      <button (click)="deleteAppointment(appointment.id!)">Delete</button>
+    </li>
+  </ul>
+</div>
